@@ -1,0 +1,46 @@
+{
+	"name": "resulta",
+	"version": "0.0.0",
+	"type": "module",
+	"description": "A simple Result type that can be serialized",
+	"scripts": {
+		"test": "vitest",
+		"lint": "biome check .",
+		"lint:types": "tsc --noEmit",
+		"build:types": "tsc --emitDeclarationOnly",
+		"build:code": "vite build"
+	},
+	"keywords": ["result", "ok", "err", "functional"],
+	"author": "",
+	"license": "UNLICENSED",
+	"packageManager": "pnpm@9.7.0",
+	"engines": {
+		"node": "20.16.0",
+		"pnpm": "9.7.0"
+	},
+	"types": "./dist/types",
+	"files": ["./dist", "./package.json"],
+	"module": "./dist/resulta.js",
+	"exports": {
+		".": {
+			"types": "./dist/types/resulta.d.ts",
+			"production": "./dist/resulta.js",
+			"development": "./src/resulta.ts",
+			"import": "./dist/resulta.js",
+			"default": "./dist/resulta.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"@types/node": "^22.2.0",
+		"@vitest/coverage-v8": "^2.0.5",
+		"fast-check": "^3.21.0",
+		"typescript": "^5.5.4",
+		"vite": "^5.4.0",
+		"vitest": "^2.0.5"
+	},
+	"dependencies": {
+		"type-fest": "^4.24.0"
+	}
+}
