@@ -89,11 +89,11 @@ export function result<A, E extends Error>(value?: A): Result<A, E> {
  *
  */
 export function err<E extends Error>(e: E): Err<E> {
-	let o = Object.create(null) satisfies Err<E>;
-	o.value = null;
-	o.status = ResultStatus.err;
-	o.err = e;
-	return o;
+	return {
+		value: null,
+		status: ResultStatus.err,
+		err: e,
+	} as Err<E>;
 }
 
 /**
@@ -102,11 +102,11 @@ export function err<E extends Error>(e: E): Err<E> {
  *
  */
 export function ok<A>(t: A): Ok<A> {
-	let o = Object.create(null) satisfies Ok<A>;
-	o.value = t;
-	o.status = ResultStatus.ok;
-	o.err = null;
-	return o;
+	return {
+		value: t,
+		status: ResultStatus.ok,
+		err: null,
+	} as Ok<A>;
 }
 
 /**
@@ -115,6 +115,7 @@ export function ok<A>(t: A): Ok<A> {
  *
  * If the `thunk` throws when awaited, an `Err` is returned with the caught
  * error, otherwise the returned value is `Ok`
+ *
  */
 export async function ofPromise<A, E extends Error>(
 	thunk: () => Promise<A>,
@@ -133,6 +134,7 @@ export async function ofPromise<A, E extends Error>(
  *
  * If the `throwable` throws, an `Err` is returned with the caught error,
  * otherwise the returned value is `Ok`
+ *
  */
 export function ofThrowable<T, E extends Error>(
 	throwable: () => T,
@@ -148,7 +150,7 @@ export function ofThrowable<T, E extends Error>(
  * @description
  * Transform the `A` to a new `Result` if `Ok`, otherwise the original `Err`.
  *
- * @alias `bind`
+ * @alias `bind` \ `flatMap`
  */
 export function andThen<A, B, E extends Error>(
 	result: Result<A, E>,
