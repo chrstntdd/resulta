@@ -101,7 +101,7 @@ export function err<E extends Error>(e: E): Err<E> {
  * Construct an Ok with a value
  *
  */
-export function ok<A>(t: A) {
+export function ok<A>(t: A): Ok<A> {
 	return {
 		value: t,
 		status: ResultStatus.ok,
@@ -115,6 +115,7 @@ export function ok<A>(t: A) {
  *
  * If the `thunk` throws when awaited, an `Err` is returned with the caught
  * error, otherwise the returned value is `Ok`
+ *
  */
 export async function ofPromise<A, E extends Error>(
 	thunk: () => Promise<A>,
@@ -133,6 +134,7 @@ export async function ofPromise<A, E extends Error>(
  *
  * If the `throwable` throws, an `Err` is returned with the caught error,
  * otherwise the returned value is `Ok`
+ *
  */
 export function ofThrowable<T, E extends Error>(
 	throwable: () => T,
